@@ -6,29 +6,31 @@ namespace OOADWings
 {
     class PretragaOstalo
     {
-        private List<Avion> avioni;
+        /*private List<Avion> avioni;
 
         public List<Avion> Avioni
         {
             get { return avioni; }
             set { this.avioni = value; }
         }
+        */
+        BaznaKlasa baznaKlasa = new BaznaKlasa();
 
         public PretragaOstalo()
         {
-            this.avioni = new List<Avion>();
+            BaznaKlasa baznaKlasa = new BaznaKlasa();
         }
 
-        public PretragaOstalo(List<Avion> avioni)
+        /*public PretragaOstalo(List<Avion> avioni)
         {
             Avioni = avioni;
-        }
+        }*/
 
         public bool nadi(Avion avion)
         {
-            for (int i = 0; i < this.avioni.Capacity; i++)
+            for (int i = 0; i < baznaKlasa.Avioni.Count; i++)
             {
-                if (avion.Vrsta.Equals(this.avioni[i].Vrsta) && avion.BrojSjedista == this.avioni[i].BrojSjedista)
+                if (avion.Vrsta.Equals(baznaKlasa.Avioni[i].Vrsta) && avion.BrojSjedista == baznaKlasa.Avioni[i].BrojSjedista)
                 {
                     return true;
                 }

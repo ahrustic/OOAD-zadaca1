@@ -4,12 +4,14 @@ namespace OOADWings
 {
     class Klijent
     {
-        private String imeIPrezime;
+        private string imeIPrezime;
         private DateTime datumRodenja;
-        private String id;
+        private string id;
 
-        public String ImeIPrezime { get { return imeIPrezime; } set { imeIPrezime = value; } }
+        public string ImeIPrezime { get { return imeIPrezime; } set { imeIPrezime = value; } }
         public DateTime DatumRodenja { get { return datumRodenja; } set { datumRodenja = value; } }
+
+      
 
         public Klijent()
         {
@@ -28,7 +30,7 @@ namespace OOADWings
             }
         }
 
-        public String Id
+        public string Id
         {
             get { return id; }
             set
@@ -39,7 +41,7 @@ namespace OOADWings
                 }
                 else
                 {
-                    id = "";
+                    Console.WriteLine("Neispravan ID");
                 }
             }
         }

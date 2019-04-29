@@ -25,9 +25,10 @@ namespace OOADWings
                 bool ispravno = true;
                 for (int i = 0; i < id.Length; i++)
                 {
-                    if ((id[i] < '1' || (id[i] > '5' && id[i] < 'a') && id[i] > 'z'))
+                    if ((id[i] < '1' || (id[i] > '5' && id[i] < 'a') || id[i] > 'z'))
                     {
                         ispravno = false;
+                        Console.WriteLine("Neispravan ID");
                         break;
                         
                     }
@@ -50,9 +51,10 @@ namespace OOADWings
                     bool ispravno = true;
                     for (int i = 0; i < value.Length; i++)
                     {
-                        if ((value[i] < '1' || (value[i] > '5' && value[i] < 'a') && value[i] > 'z'))
+                        if ((value[i] < '1' || (value[i] > '5' && value[i] < 'a') || value[i] > 'z'))
                         {
                             ispravno = false;
+                            Console.WriteLine("Neispravan ID");
                             break;
                         }
                     }
