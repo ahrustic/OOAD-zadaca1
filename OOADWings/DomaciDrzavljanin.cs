@@ -9,7 +9,13 @@ namespace OOADWings
         private int kaucija = 50;
         public DomaciDrzavljanin()
         {
-        }   
+        }
 
+        public DomaciDrzavljanin(string imeIPrezime, DateTime datumRodenja, string id) : base(imeIPrezime, datumRodenja, id)
+        {
+            ImeIPrezime = imeIPrezime;
+            DatumRodenja = datumRodenja;
+            Id = id;
+        }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OOADWings
 {
-    class PretragaOstalo
+    class PretragaOstalo:Ipretraga<Avion>
     {
         /*private List<Avion> avioni;
 
@@ -14,28 +14,29 @@ namespace OOADWings
             set { this.avioni = value; }
         }
         */
-        BaznaKlasa baznaKlasa = new BaznaKlasa();
+        BaznaKlasa baznaKlasa;
 
         public PretragaOstalo()
         {
             BaznaKlasa baznaKlasa = new BaznaKlasa();
         }
-
-        /*public PretragaOstalo(List<Avion> avioni)
+        
+        public PretragaOstalo(BaznaKlasa baznaKlasa)
         {
-            Avioni = avioni;
-        }*/
+            this.baznaKlasa = baznaKlasa;
+        }
 
-        public bool nadi(Avion avion)
+        List<Avion> Ipretraga<Avion>.nadi(Avion avion)
         {
+            List<Avion> slobodniAvioni = new List<Avion>();
             for (int i = 0; i < baznaKlasa.Avioni.Count; i++)
             {
                 if (avion.Vrsta.Equals(baznaKlasa.Avioni[i].Vrsta) && avion.BrojSjedista == baznaKlasa.Avioni[i].BrojSjedista)
                 {
-                    return true;
+                    slobodniAvioni.Add(baznaKlasa.Avioni[i]);
                 }
             }
-            return false;
+            return slobodniAvioni;
         }
 
     }

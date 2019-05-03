@@ -28,9 +28,13 @@ namespace OOADWings
         }
 
         public StraniDrzavljanin(String grad, Drzava drzava)
-        {
+        { 
             this.grad = grad;
             this.drzava = drzava;
+        }
+
+        public StraniDrzavljanin(string imeIPrezime, DateTime datumRodenja, string id) : base(imeIPrezime, datumRodenja, id)
+        {
         }
     }
 }

@@ -4,8 +4,8 @@ using System.Text;
 
 namespace OOADWings
 {
-    interface Ipretraga
+    interface Ipretraga<Avion>
     {
-        bool nadi(Avion avion);
+        List<Avion> nadi(Avion avion);
     }
 }

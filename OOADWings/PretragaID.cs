@@ -4,10 +4,10 @@ using System.Text;
 
 namespace OOADWings
 {
-    class PretragaID:Ipretraga
+    class PretragaID:Ipretraga<Avion>
     {
         //private List<Avion> avioni;
-        BaznaKlasa baznaKlasa = new BaznaKlasa();
+        BaznaKlasa baznaKlasa;
         /*public List<Avion> Avioni
         {
             get { return avioni; }
@@ -18,21 +18,24 @@ namespace OOADWings
         {
             BaznaKlasa baznaKlasa = new BaznaKlasa();
         }
-        /*
-        public PretragaID(List<Avion> avioni)
+        
+        public PretragaID(BaznaKlasa baznaKlasa)
         {
-            this.avioni = avioni;
-        }*/
+            this.baznaKlasa = baznaKlasa;
+        }
 
-        public bool nadi(Avion avion)
+        List<Avion> Ipretraga<Avion>.nadi(Avion avion)
         {
-            for (int i = 0; i < baznaKlasa.Avioni.Count; i++) {
+            List<Avion> slobodniAvioni = new List<Avion>();
+            for (int i = 0; i < baznaKlasa.Avioni.Count; i++)
+            {
                 if (avion.Id.Equals(baznaKlasa.Avioni[i].Id))
                 {
-                    return true;
+                    slobodniAvioni.Add(baznaKlasa.Avioni[i]);
                 }
             }
-            return false;
+            return slobodniAvioni;
         }
     }
 }
+
