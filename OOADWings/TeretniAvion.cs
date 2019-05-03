@@ -20,6 +20,10 @@ namespace OOADWings
         {
             Kapacitet = kapacitet;
         }
+
+        public TeretniAvion(string vrsta, int brojSjedista, string id) : base(vrsta, brojSjedista, id)
+        {
+        }
     }
 }
 

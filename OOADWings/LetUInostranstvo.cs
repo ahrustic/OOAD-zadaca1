@@ -14,14 +14,8 @@ namespace OOADWings
             set { drzave = value; }
         }
 
-        public LetUInostranstvo(List<Drzava> drzave)
+        public LetUInostranstvo(string vrsta, int brojSjedista, string id) : base(vrsta, brojSjedista, id)
         {
-            Drzave = drzave;
-        }
-
-        public LetUInostranstvo()
-        {
-            this.drzave = new List<Drzava>();
         }
     }
 }

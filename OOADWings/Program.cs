@@ -24,9 +24,8 @@ namespace OOADWings
                     String idAvionaDodanog;
                     bool ispravanId = true;
 
-
-                    Console.WriteLine("Unesite podatke o avionu");
-                    Console.WriteLine("Unesite vrstu aviona: ");
+                    Console.WriteLine("Unesite podatke o avionu!");
+                    Console.WriteLine("Unesite vrstu aviona (pu - putnički unutar zemlje, pi - putnički u inostranstvo, t - teretni: ");
                     vrsta = Convert.ToString(Console.ReadLine());
 
                 brSjedista: Console.WriteLine("Unesite broj sjedista: ");
@@ -61,8 +60,45 @@ namespace OOADWings
                         goto IDAvionaDodanog;
                     }
 
-                    baznaKlasa.dodajNoviAvion(new Avion(vrsta, brojSjedista, idAvionaDodanog));
-                    Console.WriteLine("Avion dodan!");
+                    if (vrsta.Equals("pu"))
+                    {
+                        baznaKlasa.dodajNoviAvion(new PutnickiAvion(vrsta, brojSjedista, idAvionaDodanog));
+                        Console.WriteLine("Avion dodan!");
+                    }
+                    else if (vrsta.Equals("pi"))
+                    {
+                        LetUInostranstvo noviAvion = new LetUInostranstvo(vrsta, brojSjedista, idAvionaDodanog);
+                        Console.WriteLine("Unesite drzave u koje avion moze ici: ");
+                        List<Drzava> drzave = new List<Drzava>();
+                        for (; ; )
+                        {
+                            Console.WriteLine("Unesite naziv drzave (0 za prekid): ");
+                            String naziv = Convert.ToString(Console.ReadLine());
+                            if (naziv.Equals("0")) break;
+                            else
+                            {
+                                Console.WriteLine("Unesite broj stanovnika drzave: ");
+                                int brojStanovnika = Convert.ToInt32(Console.ReadLine());
+                                drzave.Add(new Drzava(naziv, brojStanovnika));
+                            }
+
+                        }
+                        noviAvion.Drzave = drzave;
+                        baznaKlasa.dodajNoviAvion(noviAvion);
+                        Console.WriteLine("Avion dodan!");
+                    }
+
+                    else if (vrsta.Equals("t"))
+                    {
+                        TeretniAvion teretniAvion = new TeretniAvion(vrsta, brojSjedista, idAvionaDodanog);
+                        Console.WriteLine("Unesite kapacitet teretnog aviona: ");
+                        Double kapacitet = Convert.ToDouble(Console.ReadLine());
+                        teretniAvion.Kapacitet = kapacitet;
+
+                        baznaKlasa.dodajNoviAvion(teretniAvion);
+                        Console.WriteLine("Avion dodan!");
+                    }
+                       
 
                 }
 
