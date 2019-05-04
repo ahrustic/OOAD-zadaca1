@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using MojDLL;
 
 namespace OOADWings
 {
@@ -8,6 +9,9 @@ namespace OOADWings
     {
         private String grad;
         private Drzava drzava;
+        public int kaucija = 100;
+
+    
 
         public String Grad
         {
@@ -15,22 +19,27 @@ namespace OOADWings
             set { grad = value; }
         }
 
-        public Drzava Drzava
+
+        public Drzava GetDrzava()
         {
-            get { return drzava; }
-            set { drzava = value; }
+            return drzava;
+        }
+
+        public void SetDrzava(Drzava value)
+        {
+            drzava = value;
         }
 
         public StraniDrzavljanin()
         {
             this.grad = "";
-            this.drzava = new Drzava();
+            this.SetDrzava(new Drzava());
         }
 
         public StraniDrzavljanin(String grad, Drzava drzava)
         { 
             this.grad = grad;
-            this.drzava = drzava;
+            this.SetDrzava(drzava);
         }
 
         public StraniDrzavljanin(string imeIPrezime, DateTime datumRodenja, string id) : base(imeIPrezime, datumRodenja, id)

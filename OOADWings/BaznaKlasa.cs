@@ -8,6 +8,13 @@ namespace OOADWings
     {
         private List<Klijent> klijenti = new List<Klijent>();
         private List<Avion> avioni = new List<Avion>();
+        private List<Obavijest> obavijesti = new List<Obavijest>();
+
+        public List<Obavijest> Obavijesti
+        {
+            get { return obavijesti; }
+            set { obavijesti = value; }
+        }
 
         public List<Avion> Avioni
         {

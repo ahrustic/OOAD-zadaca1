@@ -6,7 +6,7 @@ namespace OOADWings
 {
     class LetUnutarZemlje:PutnickiAvion
     {
-        public LetUnutarZemlje()
+        public LetUnutarZemlje(string vrsta, int brojSjedista, string id) : base(vrsta, brojSjedista, id)
         {
         }
     }

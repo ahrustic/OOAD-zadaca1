@@ -5,4 +5,13 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="Drzava">
+      <HintPath>C:\Users\CpuInfotech\Desktop\Drzava.dll</HintPath>
+    </Reference>
+    <Reference Include="MojDLL">
+      <HintPath>C:\Users\CpuInfotech\Desktop\MojDLL.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

@@ -6,6 +6,7 @@ namespace OOADWings
 {
     class Avion
     {
+
         private String vrsta;
         private int brojSjedista;
         private String id;
@@ -30,7 +31,7 @@ namespace OOADWings
                         ispravno = false;
                         Console.WriteLine("Neispravan ID");
                         break;
-                        
+
                     }
                 }
                 if (ispravno)
@@ -38,7 +39,7 @@ namespace OOADWings
                     this.id = id;
                 }
             }
- 
+
         }
 
         public String Id
@@ -70,5 +71,5 @@ namespace OOADWings
 
         public String Vrsta { get { return vrsta; } set { vrsta = value; } }
 
-    }
+}
 }

@@ -41,7 +41,41 @@ namespace OOADWings
             krajnjiDatum = new DateTime();
         }
 
-        public void metoda() {
+        public double metoda(BaznaKlasa baznaKlasa, String id) {
+            double iznosZaPlacanje = 0.0;
+            int daniIzmedu = (krajnjiDatum - pocetniDatum).Days;
+            int pozicija = 0;
+            for (int i = 0; i < baznaKlasa.Klijenti.Count; i++)
+            {
+                if (baznaKlasa.Klijenti[i].Id.Equals(id))
+                {
+
+                    pozicija = i;
+                    break;
+                }
+            }
+            if (baznaKlasa.Klijenti[pozicija].Avion is PutnickiAvion)
+            {
+                iznosZaPlacanje = daniIzmedu * 120;
+                if (baznaKlasa.Klijenti[pozicija].DatumIznamljivanja.DayOfWeek.Equals("Saturday") || baznaKlasa.Klijenti[pozicija].DatumIznamljivanja.DayOfWeek.Equals("Sunday")) iznosZaPlacanje += 500;
+                if (baznaKlasa.Klijenti[pozicija] is DomaciDrzavljanin) iznosZaPlacanje = iznosZaPlacanje - 50;
+                else if (baznaKlasa.Klijenti[pozicija] is StraniDrzavljanin) iznosZaPlacanje = iznosZaPlacanje - 100;
+            }
+            else if (baznaKlasa.Klijenti[pozicija].Avion is LetUInostranstvo)
+            {
+                iznosZaPlacanje = daniIzmedu * 200;
+                if (baznaKlasa.Klijenti[pozicija].DatumIznamljivanja.DayOfWeek.Equals("Saturday") || baznaKlasa.Klijenti[pozicija].DatumIznamljivanja.DayOfWeek.Equals("Sunday")) iznosZaPlacanje += 1000;
+                if (baznaKlasa.Klijenti[pozicija] is DomaciDrzavljanin) iznosZaPlacanje = iznosZaPlacanje - 50;
+                else if (baznaKlasa.Klijenti[pozicija] is StraniDrzavljanin) iznosZaPlacanje = iznosZaPlacanje - 100;
+            }
+            else if (baznaKlasa.Klijenti[pozicija].Avion is TeretniAvion)
+            {
+                TeretniAvion tAvion = (TeretniAvion) baznaKlasa.Klijenti[pozicija].Avion;
+                iznosZaPlacanje = daniIzmedu * 200 + (tAvion.Kapacitet / 0.001) * 0.02;
+                if (baznaKlasa.Klijenti[pozicija] is DomaciDrzavljanin) iznosZaPlacanje = iznosZaPlacanje - 50;
+                else if (baznaKlasa.Klijenti[pozicija] is StraniDrzavljanin) iznosZaPlacanje = iznosZaPlacanje - 100;
+            }
+            return iznosZaPlacanje;
         }
     }
 }

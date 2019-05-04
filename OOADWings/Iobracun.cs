@@ -6,6 +6,14 @@ namespace OOADWings
 {
     interface Iobracun
     {
-        void metoda();
+        
+        /*public double Metoda(Avion avion, Klijent klijent, DateTime datumIznamljivanja)
+        {
+            double iznosZaPlacanje;
+
+            return iznosZaPlacanje;
+        }*/
+
+        double metoda(BaznaKlasa bazna, String id);
     }
 }

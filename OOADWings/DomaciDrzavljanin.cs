@@ -6,7 +6,7 @@ namespace OOADWings
 {
     class DomaciDrzavljanin : Klijent
     {
-        private int kaucija = 50;
+        public int kaucija = 50;
         public DomaciDrzavljanin()
         {
         }
