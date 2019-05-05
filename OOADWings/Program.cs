@@ -9,11 +9,7 @@ namespace OOADWings
     class Program
     {
         public delegate void MojDelegat(string arg1, string arg2, BaznaKlasa bazna);
-        public static void pokreniTest()
-        {
-            //MojDelegat delegat = printajNaKonzolu;
-            //delegat("Ime", "Prezime");
-        }
+        
         public static void printajNaKonzoluIDodajUListu(string poruka, string id, BaznaKlasa baznaKlasa)
         {
             Obavijest obavijest = new Obavijest();
@@ -21,7 +17,9 @@ namespace OOADWings
             obavijest.SifraKLijenta = id;
             obavijest.DatumIVrijemeObavijesti = DateTime.Now;
             baznaKlasa.Obavijesti.Add(obavijest);
-            
+
+            Console.WriteLine("Poruka glasi: {0}", poruka);
+
         }
 
 
@@ -52,6 +50,11 @@ namespace OOADWings
                     try
                     {
                         brojSjedista = Convert.ToInt32(Console.ReadLine());
+                        if (brojSjedista <= 0)
+                        {
+                            Console.WriteLine("Neispravan broj sjedista! Pokusajte ponovo!");
+                            goto brSjedista;
+                        }
                     }
                     catch (Exception e)
                     {
@@ -77,13 +80,14 @@ namespace OOADWings
                     if (!ispravanId)
                     {
                         Console.WriteLine("Neispravan identifikacioni broj aviona! Pokusajte ponovo!");
+                        ispravanId = true;
                         goto IDAvionaDodanog;
                     }
 
                     if (vrsta.Equals("pu"))
                     {
-                        baznaKlasa.dodajNoviAvion(new PutnickiAvion(vrsta, brojSjedista, idAvionaDodanog));
-                        Console.WriteLine("Avion dodan!");
+                        baznaKlasa.dodajNoviAvion(new LetUnutarZemlje(vrsta, brojSjedista, idAvionaDodanog));
+                        Console.WriteLine("Dodan putnicki (unutar zemlje) avion!");
                     }
                     else if (vrsta.Equals("pi"))
                     {
@@ -97,26 +101,31 @@ namespace OOADWings
                             if (naziv.Equals("0")) break;
                             else
                             {
-                                Console.WriteLine("Unesite broj stanovnika drzave: ");
+                              broj:  Console.WriteLine("Unesite broj stanovnika drzave: ");
                                 int brojStanovnika = Convert.ToInt32(Console.ReadLine());
+                                if (brojStanovnika <= 0) {
+                                    Console.WriteLine("Neispravan broj stanovnika! Pokusajte ponovo!");
+                                    goto broj;
+                                }
                                 drzave.Add(new Drzava(naziv, brojStanovnika));
                             }
 
                         }
                         noviAvion.Drzave = drzave;
                         baznaKlasa.dodajNoviAvion(noviAvion);
-                        Console.WriteLine("Avion dodan!");
+                        Console.WriteLine("Dodan putnicki (u inostranstvo) avion!");
                     }
 
                     else if (vrsta.Equals("t"))
                     {
                         TeretniAvion teretniAvion = new TeretniAvion(vrsta, brojSjedista, idAvionaDodanog);
-                        Console.WriteLine("Unesite kapacitet teretnog aviona: ");
+                        kapacitet: Console.WriteLine("Unesite kapacitet teretnog aviona: ");
                         Double kapacitet = Convert.ToDouble(Console.ReadLine());
-                        teretniAvion.Kapacitet = kapacitet;
+                        if (kapacitet <= 0) { Console.WriteLine("Pogresan podatak! "); goto kapacitet; }
+                        else { teretniAvion.Kapacitet = kapacitet; }
 
                         baznaKlasa.dodajNoviAvion(teretniAvion);
-                        Console.WriteLine("Avion dodan!");
+                        Console.WriteLine("Dodan teretni avion!");
                     }
                        
 
@@ -148,6 +157,10 @@ namespace OOADWings
                     try
                     {
                         danRodenja = Convert.ToInt32(Console.ReadLine());
+                        if (danRodenja <= 0 || danRodenja > 31) {
+                            Console.WriteLine("Neispravna forma dana! Unesite ponovo: ");
+                            goto danRodenja;
+                        }
                     }
                     catch (Exception)
                     {
@@ -159,6 +172,11 @@ namespace OOADWings
                     try
                     {
                         mjesecRodenja = Convert.ToInt32(Console.ReadLine());
+                        if (mjesecRodenja <= 0 || mjesecRodenja > 12)
+                        {
+                            Console.WriteLine("Neispravan mjesec! Unesite ponovo: ");
+                            goto mjesecRodenja;
+                        }  
                         if ((mjesecRodenja == 2 || mjesecRodenja == 4 || mjesecRodenja == 6 || mjesecRodenja == 9 || mjesecRodenja == 11) && danRodenja == 31)
                         {
                             Console.WriteLine("Ovaj mjesec nema 31 dan! Unesite ponovo dan i mjesec: ");
@@ -182,6 +200,10 @@ namespace OOADWings
                     try
                     {
                         godinaRodenja = Convert.ToInt32(Console.ReadLine());
+                        if (godinaRodenja <= 999) {
+                            Console.WriteLine("Neispravna forma godine! Unesite ponovo: ");
+                            goto godinaRodenja;
+                        }
                         if (!((godinaRodenja % 4 == 0) && (godinaRodenja % 100 != 0)) || (godinaRodenja % 400 == 0)) prestupna = true;
                         if (!prestupna && mjesecRodenja == 2 && danRodenja < 28)
                         {
@@ -215,8 +237,9 @@ namespace OOADWings
                         StraniDrzavljanin straniDrzavljanin = new StraniDrzavljanin(naziv, datum, idKlijenta);
                         Console.WriteLine("Unesite naziv drzave: ");
                         String drzava = Convert.ToString(Console.ReadLine());
-                        Console.WriteLine("Unesite broj stanovnika drzave: ");
+                        br: Console.WriteLine("Unesite broj stanovnika drzave: ");
                         int brojStanovnika = Convert.ToInt32(Console.ReadLine());
+                        if (brojStanovnika <= 0) { Console.WriteLine("Pogresan broj stanovnika!"); goto br; }
                         Console.WriteLine("Unesite naziv grada: ");
                         String grad = Convert.ToString(Console.ReadLine());
                         straniDrzavljanin.SetDrzava(new Drzava(drzava, brojStanovnika));
@@ -236,6 +259,7 @@ namespace OOADWings
                     DateTime pocetniDatumIznajmljivanja;
                     DateTime krajnjiDatumIznajmljivanja;
                     Klijent klijent = new Klijent();
+                    int pozicijaKlijenta = 0;
 
                 Klijent: Console.WriteLine("Unesite identifikacijski broj: ");
                     String id = Convert.ToString(Console.ReadLine());
@@ -253,6 +277,7 @@ namespace OOADWings
                             {
                                 postojiKlijent = true;
                                 klijent = baznaKlasa.Klijenti[i];
+                                pozicijaKlijenta = i;
                                 break;
                             }
                         }
@@ -288,13 +313,14 @@ namespace OOADWings
                                 if (!ispravanIdAviona)
                                 {
                                     Console.WriteLine("Neispravan ID!");
+                                    ispravanIdAviona = true;
                                     goto IDAviona;
                                 }
                                 else
                                 {
 
-                                    avionZaPretragu = new Avion(idAviona, 0, "");
-                                    List<Avion> slobodniAvioni = pretragaPoID.nadi(avionZaPretragu);
+                                    avionZaPretragu = new Avion("", 0, idAviona);
+                                    List <Avion> slobodniAvioni = pretragaPoID.nadi(avionZaPretragu);
                                     if (pretragaPoID.nadi(avionZaPretragu).Count() == 0)
                                     {
                                         Console.WriteLine("Avion ne postoji! Unesite tekst poruke za obavijest: ");
@@ -321,6 +347,7 @@ namespace OOADWings
                                             if (pretragaPoID.nadi(avionZaPretragu)[i].Vrsta == zeljenaVrstaAviona)
                                             {
                                                 pozicija = i;
+                                                baznaKlasa.Klijenti[pozicijaKlijenta].Avion = pretragaPoID.nadi(avionZaPretragu)[i];
                                             }
                                         }
 
@@ -332,7 +359,7 @@ namespace OOADWings
 
                                         else
                                         {
-
+                                            
                                             Console.WriteLine("Unesite pocetni datum iznajmljivanja: ");
                                         pocetniDanIznajmljivanja: Console.WriteLine("Unesite dan iznajmljivanja: ");
                                             int danIznajmljivanja = 0;
@@ -389,7 +416,7 @@ namespace OOADWings
                                             pocetniDatumIznajmljivanja = new DateTime(godinaIznajmljivanja, mjesecIznajmljivanja, danIznajmljivanja);
                                             klijent.DatumIznamljivanja = pocetniDatumIznajmljivanja;
 
-                                            Console.WriteLine("Unesite pocetni datum iznajmljivanja: ");
+                                            Console.WriteLine("Unesite krajnji datum iznajmljivanja: ");
                                         krajnjiDanIznajmljivanja: Console.WriteLine("Unesite dan iznajmljivanja: ");
                                             danIznajmljivanja = 0;
                                             try
@@ -443,9 +470,10 @@ namespace OOADWings
                                             }
 
                                             krajnjiDatumIznajmljivanja = new DateTime(godinaIznajmljivanja, mjesecIznajmljivanja, danIznajmljivanja);
-                                            klijent.DatumVracanja = krajnjiDatumIznajmljivanja;
-
-                                         
+                                            baznaKlasa.Klijenti[pozicijaKlijenta].DatumVracanja = krajnjiDatumIznajmljivanja;
+                                            baznaKlasa.Klijenti[pozicijaKlijenta].DatumIznamljivanja = pocetniDatumIznajmljivanja;
+                                            baznaKlasa.Klijenti[pozicijaKlijenta].Avion = pretragaPoID.nadi(avionZaPretragu)[pozicija];
+                                            
                                         }
                                     }
                                 }
@@ -621,9 +649,9 @@ namespace OOADWings
                                         }
 
                                         krajnjiDatumIznajmljivanja = new DateTime(godinaIznajmljivanja, mjesecIznajmljivanja, danIznajmljivanja);
-                                        klijent.DatumVracanja = krajnjiDatumIznajmljivanja;
-                                        klijent.DatumIznamljivanja = pocetniDatumIznajmljivanja;
-                                        klijent.Avion = avionZaPretragu;
+                                        baznaKlasa.Klijenti[pozicijaKlijenta].DatumVracanja = krajnjiDatumIznajmljivanja;
+                                        baznaKlasa.Klijenti[pozicijaKlijenta].DatumIznamljivanja = pocetniDatumIznajmljivanja;
+                                        baznaKlasa.Klijenti[pozicijaKlijenta].Avion = pretragaOstalo.nadi(avionZaPretragu)[pozicija];
                                     }
                                 }
                             }
@@ -640,9 +668,9 @@ namespace OOADWings
                     int danIznajmljivanja;
                     int mjesecIznajmljivanja;
                     int godinaIznajmljivanja;
-                    int daniIzmedu = 0;
                     Klijent klijent = new Klijent();
-                    DateTime nultoVrijeme = new DateTime(0, 0, 0);
+                    DateTime nultoVrijeme = new DateTime();
+                    int pozicijaKlijenta = 0;
 
                 klijent: Console.WriteLine("Unesite identifikacijski broj: ");
                     String id = Convert.ToString(Console.ReadLine());
@@ -660,6 +688,7 @@ namespace OOADWings
                             {
                                 postojiKlijent = true;
                                 klijent = baznaKlasa.Klijenti[i];
+                                pozicijaKlijenta = i;
                                 break;
                             }
                         }
@@ -675,62 +704,67 @@ namespace OOADWings
                         if (klijent.DatumIznamljivanja == nultoVrijeme) { Console.WriteLine("Klijent nije nista rezervisao!"); }
                         else
                         {
-                            Console.WriteLine("Unesite krajnji datum iznajmljivanja: ");
-                        krajnjiDanIznajmljivanja: Console.WriteLine("Unesite dan iznajmljivanja: ");
-                            danIznajmljivanja = 0;
-                            try
+                            Console.WriteLine("Da li je promjenjen dan vracanja (odgovorite sa DA ili NE): ");
+                            String promjena = Convert.ToString(Console.ReadLine());
+                            if (promjena.Equals("DA"))
                             {
-                                danIznajmljivanja = Convert.ToInt32(Console.ReadLine());
-                            }
-                            catch (Exception)
-                            {
-                                Console.WriteLine("Neispravna forma dana! Unesite ponovo: ");
-                                goto krajnjiDanIznajmljivanja;
-                            }
-                        krajnjiMjesecIznajmljivanja: Console.WriteLine("Unesite mjesec iznajmljivanja: ");
-                            mjesecIznajmljivanja = 0;
-                            try
-                            {
-                                mjesecIznajmljivanja = Convert.ToInt32(Console.ReadLine());
-                                if ((mjesecIznajmljivanja == 2 || mjesecIznajmljivanja == 4 || mjesecIznajmljivanja == 6 || mjesecIznajmljivanja == 9 || mjesecIznajmljivanja == 11) && danIznajmljivanja == 31)
+                                Console.WriteLine("Unesite krajnji datum iznajmljivanja: ");
+                            krajnjiDanIznajmljivanja: Console.WriteLine("Unesite dan iznajmljivanja: ");
+                                danIznajmljivanja = 0;
+                                try
                                 {
-                                    Console.WriteLine("Ovaj mjesec nema 31 dan! Unesite ponovo dan i mjesec: ");
+                                    danIznajmljivanja = Convert.ToInt32(Console.ReadLine());
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Neispravna forma dana! Unesite ponovo: ");
+                                    goto krajnjiDanIznajmljivanja;
+                                }
+                            krajnjiMjesecIznajmljivanja: Console.WriteLine("Unesite mjesec iznajmljivanja: ");
+                                mjesecIznajmljivanja = 0;
+                                try
+                                {
+                                    mjesecIznajmljivanja = Convert.ToInt32(Console.ReadLine());
+                                    if ((mjesecIznajmljivanja == 2 || mjesecIznajmljivanja == 4 || mjesecIznajmljivanja == 6 || mjesecIznajmljivanja == 9 || mjesecIznajmljivanja == 11) && danIznajmljivanja == 31)
+                                    {
+                                        Console.WriteLine("Ovaj mjesec nema 31 dan! Unesite ponovo dan i mjesec: ");
+                                        goto krajnjiMjesecIznajmljivanja;
+                                    }
+                                    if (mjesecIznajmljivanja == 2 && danIznajmljivanja > 29)
+                                    {
+                                        Console.WriteLine("Provjerite unos! Unesite ponovo dan i mjesec: ");
+                                        goto krajnjiDanIznajmljivanja;
+                                    }
+
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Neispravna forma mjeseca! Unesite ponovo: ");
                                     goto krajnjiMjesecIznajmljivanja;
                                 }
-                                if (mjesecIznajmljivanja == 2 && danIznajmljivanja > 29)
+                            krajnjaGodinaIznajmljivanja: Console.WriteLine("Unesite godinu iznajmljivanja: ");
+                                godinaIznajmljivanja = 0;
+                                bool prestupnaGodina = false;
+                                try
                                 {
-                                    Console.WriteLine("Provjerite unos! Unesite ponovo dan i mjesec: ");
-                                    goto krajnjiDanIznajmljivanja;
+                                    godinaIznajmljivanja = Convert.ToInt32(Console.ReadLine());
+                                    if (!((godinaIznajmljivanja % 4 == 0) && (godinaIznajmljivanja % 100 != 0)) || (godinaIznajmljivanja % 400 == 0)) prestupnaGodina = true;
+                                    if (!prestupnaGodina && mjesecIznajmljivanja == 2 && danIznajmljivanja < 28)
+                                    {
+                                        Console.WriteLine("Provjerite unos! Unesite ponovo dan,mjesec i godinu: ");
+                                        goto krajnjiDanIznajmljivanja;
+                                    }
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Neispravna forma godine! Unesite ponovo: ");
+                                    goto krajnjaGodinaIznajmljivanja;
                                 }
 
+                                krajnjiDatumIznajmljivanja = new DateTime(godinaIznajmljivanja, mjesecIznajmljivanja, danIznajmljivanja);
+                                baznaKlasa.Klijenti[pozicijaKlijenta].DatumVracanja = krajnjiDatumIznajmljivanja;
                             }
-                            catch (Exception)
-                            {
-                                Console.WriteLine("Neispravna forma mjeseca! Unesite ponovo: ");
-                                goto krajnjiMjesecIznajmljivanja;
-                            }
-                           krajnjaGodinaIznajmljivanja: Console.WriteLine("Unesite godinu iznajmljivanja: ");
-                            godinaIznajmljivanja = 0;
-                            bool prestupnaGodina = false;
-                            try
-                            {
-                                godinaIznajmljivanja = Convert.ToInt32(Console.ReadLine());
-                                if (!((godinaIznajmljivanja % 4 == 0) && (godinaIznajmljivanja % 100 != 0)) || (godinaIznajmljivanja % 400 == 0)) prestupnaGodina = true;
-                                if (!prestupnaGodina && mjesecIznajmljivanja == 2 && danIznajmljivanja < 28)
-                                {
-                                    Console.WriteLine("Provjerite unos! Unesite ponovo dan,mjesec i godinu: ");
-                                    goto krajnjiDanIznajmljivanja;
-                                }
-                            }
-                            catch (Exception)
-                            {
-                                Console.WriteLine("Neispravna forma godine! Unesite ponovo: ");
-                                goto krajnjaGodinaIznajmljivanja;
-                            }
-
-                            krajnjiDatumIznajmljivanja = new DateTime(godinaIznajmljivanja, mjesecIznajmljivanja, danIznajmljivanja);
-                            klijent.DatumVracanja = krajnjiDatumIznajmljivanja;
-                            Iobracun obracun = new KlasaZaObracun(klijent.DatumIznamljivanja, klijent.DatumVracanja);
+                            Iobracun obracun = new KlasaZaObracun(baznaKlasa.Klijenti[pozicijaKlijenta].DatumIznamljivanja, baznaKlasa.Klijenti[pozicijaKlijenta].DatumVracanja);
                             iznosZaPlacanje = obracun.metoda(baznaKlasa, id);
       
                             Console.WriteLine("Potrebno je platiti {0}KM! ", iznosZaPlacanje);
@@ -740,7 +774,15 @@ namespace OOADWings
                 }
                 else if (meni.Equals("5"))
                 {
-
+                    if (baznaKlasa.Obavijesti.Count == 0) Console.WriteLine("Lista obavijesti je prazna!");
+                    else
+                    {
+                        Console.WriteLine("Ispis liste obavijesti: ");
+                        for (int i = 0; i < baznaKlasa.Obavijesti.Count; i++)
+                        {
+                            Console.WriteLine("{0}. Poruka: {1} \n ID klijenta: {2} \n Datum i vrijeme obavijesti: {3} \n", i+1, baznaKlasa.Obavijesti[i].Poruka, baznaKlasa.Obavijesti[i].SifraKLijenta, baznaKlasa.Obavijesti[i].DatumIVrijemeObavijesti);
+                        }
+                    }
                 }
                 else if (meni.Equals("6"))
                 {
@@ -752,3 +794,12 @@ namespace OOADWings
         }
     }
 }
+
+
+
+//todo dodati da kada se iznajmi avion da se izbrise iz bazne liste i da se doda kod klijenta
+//todo kada se avion vrati da se doda u listu u baznoj klasi, a izbrise kod klijenta
+//todo provjeriti validaciju
+//todo ispraviti dijagram klasa
+//todo vratiti kauciju
+

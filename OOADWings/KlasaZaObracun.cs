@@ -54,7 +54,7 @@ namespace OOADWings
                     break;
                 }
             }
-            if (baznaKlasa.Klijenti[pozicija].Avion is PutnickiAvion)
+            if (baznaKlasa.Klijenti[pozicija].Avion is LetUnutarZemlje)
             {
                 iznosZaPlacanje = daniIzmedu * 120;
                 if (baznaKlasa.Klijenti[pozicija].DatumIznamljivanja.DayOfWeek.Equals("Saturday") || baznaKlasa.Klijenti[pozicija].DatumIznamljivanja.DayOfWeek.Equals("Sunday")) iznosZaPlacanje += 500;
@@ -71,7 +71,7 @@ namespace OOADWings
             else if (baznaKlasa.Klijenti[pozicija].Avion is TeretniAvion)
             {
                 TeretniAvion tAvion = (TeretniAvion) baznaKlasa.Klijenti[pozicija].Avion;
-                iznosZaPlacanje = daniIzmedu * 200 + (tAvion.Kapacitet / 0.001) * 0.02;
+                iznosZaPlacanje = daniIzmedu * 200 + (tAvion.Kapacitet * 1000) * 0.02;
                 if (baznaKlasa.Klijenti[pozicija] is DomaciDrzavljanin) iznosZaPlacanje = iznosZaPlacanje - 50;
                 else if (baznaKlasa.Klijenti[pozicija] is StraniDrzavljanin) iznosZaPlacanje = iznosZaPlacanje - 100;
             }

@@ -27,6 +27,7 @@ namespace OOADWings
         List<Avion> Ipretraga<Avion>.nadi(Avion avion)
         {
             List<Avion> slobodniAvioni = new List<Avion>();
+            
             for (int i = 0; i < baznaKlasa.Avioni.Count; i++)
             {
                 if (avion.Id.Equals(baznaKlasa.Avioni[i].Id))

@@ -22,8 +22,8 @@ namespace OOADWings
         {
             this.imeIPrezime = "";
             this.datumRodenja = new DateTime();
-            this.datumIznajmljivanja = new DateTime(0,0,0);
-            this.datumVracanja = new DateTime(0,0,0);
+            this.datumIznajmljivanja = new DateTime();
+            this.datumVracanja = new DateTime();
             this.id = "";
         }
 
