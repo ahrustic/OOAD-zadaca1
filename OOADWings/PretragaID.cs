@@ -6,14 +6,9 @@ namespace OOADWings
 {
     class PretragaID:Ipretraga<Avion>
     {
-        //private List<Avion> avioni;
+        
         BaznaKlasa baznaKlasa;
-        /*public List<Avion> Avioni
-        {
-            get { return avioni; }
-            set { avioni = value; }
-        }*/
-
+        
         public PretragaID()
         {
             BaznaKlasa baznaKlasa = new BaznaKlasa();

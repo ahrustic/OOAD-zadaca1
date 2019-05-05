@@ -6,14 +6,6 @@ namespace OOADWings
 {
     class PretragaOstalo:Ipretraga<Avion>
     {
-        /*private List<Avion> avioni;
-
-        public List<Avion> Avioni
-        {
-            get { return avioni; }
-            set { this.avioni = value; }
-        }
-        */
         BaznaKlasa baznaKlasa;
 
         public PretragaOstalo()

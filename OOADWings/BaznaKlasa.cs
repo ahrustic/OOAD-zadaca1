@@ -30,10 +30,6 @@ namespace OOADWings
 
         public BaznaKlasa()
         {
-           /* Klijent k = new Klijent("Mujo Mujic", new DateTime(), "123451");
-            klijenti.Add(k);
-            Avion avion = new Avion("masina", 123, "aaaaaaaaa");
-            avioni.Add(avion);*/
         }
 
         public void dodajNoviAvion(Avion a)
@@ -45,7 +41,6 @@ namespace OOADWings
         {
             klijenti.Add(k);
         }
-
 
     }
 }

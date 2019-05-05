@@ -25,6 +25,7 @@ namespace OOADWings
             this.datumIznajmljivanja = new DateTime();
             this.datumVracanja = new DateTime();
             this.id = "";
+            this.avion = null;
         }
 
         public Klijent(string imeIPrezime, DateTime datumRodenja, String id)
